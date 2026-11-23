@@ -1,26 +1,43 @@
 
 import { useState } from "react";
-import React from "react";
 
 function ProductCard(props) {
 
   const [cart, setCart] = useState(0);
 
+  // Add product to cart
   function addToCart() {
-    setCart(cart + 1);
+    setCart((previousCount) => previousCount + 1);
+  }
+
+  // Reset product count
+  function resetCount() {
+    setCart(0);
   }
 
   return (
-    <div>
-      <h2>{props.name}</h2>
-      <p>Price: Rs. {props.price}</p>
-      <p>Category: {props.category}</p>
+    <div className="product-card">
 
-      <button onClick={addToCart}>
-        Add to Cart
+      <span className="category">
+        {props.category}
+      </span>
+
+      <h2>{props.name}</h2>
+
+      <h3>₹{props.price.toLocaleString("en-IN")}</h3>
+
+      <div className="cart-info">
+        Items Added: <strong>{cart}</strong>
+      </div>
+
+      <button className="add-btn" onClick={addToCart}>
+        + Add to Cart
       </button>
 
-      <p>Items Added: {cart}</p>
+      <button className="reset-btn" onClick={resetCount}>
+        Reset Count
+      </button>
+
     </div>
   );
 }
